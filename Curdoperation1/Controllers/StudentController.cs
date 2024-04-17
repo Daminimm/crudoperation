@@ -6,17 +6,47 @@ using System.Web.Mvc;
 using Curdoperation1.Models;
 using PagedList;
 
-
 namespace Curdoperation1.Controllers
 {
     public class StudentController : Controller
     {
         // GET: Student
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder,string SearchData,string CurrentFilter,int? PageNo)
         {
             Entities DBContext = new Entities();
             List<STUDENT> StuList = DBContext.STUDENTs.ToList();
-            return View(StuList);   
+            ViewBag.SortingName = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            if (SearchData != null)
+            {
+                PageNo = 1;
+            }
+            else
+            {
+                SearchData = CurrentFilter;
+            }
+
+            ViewBag.FilterValue = SearchData;
+
+            var Student = from s in DBContext.STUDENTs select s;
+            if (!String.IsNullOrEmpty(SearchData))
+            {
+                Student = Student.Where(s => s.NAME.ToUpper().Contains(SearchData.ToUpper()));
+                  
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    Student = Student.OrderByDescending(s => s.NAME);
+                    break;
+
+                default:
+                    Student = Student.OrderBy(s => s.NAME);
+                    break;
+            }
+
+            int PageSize = 5;
+            int No_Of_Page = (PageNo ?? 1);
+            return View(Student.ToPagedList(No_Of_Page, PageSize));   
         }
         [HttpGet]
         public ActionResult Create()

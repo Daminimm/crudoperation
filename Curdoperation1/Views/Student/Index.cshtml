@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Curdoperation1.Models.STUDENT>
+﻿@model PagedList.IPagedList<Curdoperation1.Models.STUDENT>
+@using PagedList.Mvc;
+
 @{
     ViewBag.Title = "Index";
 }
@@ -6,39 +8,46 @@
 <h2>Index</h2>
 <p class="text-right">
     @Html.ActionLink("Create New", "Create")
-   
-
 </p>
-
+@using (Html.BeginForm("Index", "Student", FormMethod.Get))
+{
+    <p>
+        Search Name: @Html.TextBox("SearchData", ViewBag.FilterValue as string)
+        <input type="submit" value="Find" />
+    </p>
+}
 @if (ViewBag.Message != null)
- {
+{
 
     <p class="alert alert-success" role="alert">
         @ViewBag.Message
     </p>
- }
+}
 
 <table class="table">
+
     <tr>
-        
         <th>
-            @Html.DisplayNameFor(model => model.NAME)
+            @Html.ActionLink(" Name", "Index", new { sortOrder = ViewBag.SortingName })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.GENDER)
+            Gender
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PHONE_NO)
+            PhoneNumber
         </th>
+        <th></th>
     </tr>
     @if (Model != null && Model.Count() > 0)
     {
+
         foreach (var item in Model)
         {
             <tr>
-                
+
                 <td>
                     @Html.DisplayFor(modelItem => item.NAME)
+
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.GENDER)
@@ -47,8 +56,8 @@
                     @Html.DisplayFor(modelItem => item.PHONE_NO)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { ID = item.ID}) |
-                    @Html.ActionLink("Detail", "Detail", new { ID = item.ID}) |
+                    @Html.ActionLink("Edit", "Edit", new { ID = item.ID }) |
+                    @Html.ActionLink("Detail", "Detail", new { ID = item.ID }) |
                     @Html.ActionLink("Delete", "Delete", new { ID = item.ID })
                 </td>
             </tr>
@@ -61,9 +70,10 @@
 
     }
 
-
-
-
 </table>
+<br />
+Page @(Model.PageSize < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageSize
+@Html.PagedListPager(Model, PageNo => Url.Action("Index",
+    new { PageNo, sortOrder = ViewBag.CurrentsortOrder, CurrentFilter = ViewBag.FilterValue }))
 
 
