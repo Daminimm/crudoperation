@@ -1,0 +1,84 @@
+﻿@model Curdoperation1.Models.STUDENT
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+<style type="text/css">
+    body {
+        font-family: 'Times New Roman';
+        font-size: 15pt;
+    }
+
+    .form-group {
+        color: red;
+    }
+    .form-control {
+        border: 2px solid ;
+        padding: 3px;
+    }
+
+</style>
+@if (ViewBag.Message != null)
+{
+    <p class="alert alert-success" role="alert">
+        @ViewBag.Message
+    </p>
+
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <p class="form-horizontal">
+    <p>STUDENT</p>
+    <hr />
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+
+
+    <p class="form-group">
+        @Html.LabelFor(model => model.NAME, "Name*", htmlAttributes: new { @class = "control-label col-md-2" })
+    <p class="col-md-10">
+        @Html.EditorFor(model => model.NAME, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.NAME, "", new { @class = "text-danger" })
+
+    </p>
+    </p>
+
+    <p class="form-group">
+        @Html.LabelFor(model => model.GENDER, "Gender*", htmlAttributes: new { @class = "control-label col-md-2" })
+       
+    <p class="col-md-10">
+
+        @{ IEnumerable<string> strList = new List<string> { "Male", "Female" }; }
+        @Html.DropDownList("Gender", new SelectList(strList, strList.FirstOrDefault()), "--Select Gender----")
+        @Html.ValidationMessageFor(model => model.GENDER, "", new { @class = "text-danger" })
+
+    </p>
+    </p>
+    <p class="form-group">
+        @Html.LabelFor(model => model.PHONE_NO, "PhoneNumber*", htmlAttributes: new { @class = "control-label col-md-2" })
+    <p class="col-md-10">
+      
+        @Html.EditorFor(model => model.PHONE_NO, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.PHONE_NO, "", new { @class = "text-danger" })
+    </p>
+    </p>
+
+
+    <p class="form-group">
+    <p class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Create" class="btn btn-default" />
+    </p>
+    </p>
+    </p>
+}
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+
