@@ -51,3 +51,7 @@ C:\Users\verve\source\repos\Curdoperation1\Curdoperation1\bin\Microsoft.CodeDom.
 C:\Users\verve\source\repos\Curdoperation1\Curdoperation1\obj\Debug\Curdoperation1.csproj.CopyComplete
 C:\Users\verve\source\repos\Curdoperation1\Curdoperation1\obj\Debug\Curdoperation1.dll
 C:\Users\verve\source\repos\Curdoperation1\Curdoperation1\obj\Debug\Curdoperation1.pdb
+C:\Users\verve\source\repos\Curdoperation1\Curdoperation1\bin\PagedList.dll
+C:\Users\verve\source\repos\Curdoperation1\Curdoperation1\bin\PagedList.Mvc.dll
+C:\Users\verve\source\repos\Curdoperation1\Curdoperation1\bin\PagedList.xml
+C:\Users\verve\source\repos\Curdoperation1\Curdoperation1\bin\PagedList.Mvc.xml
